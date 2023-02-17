@@ -44,3 +44,27 @@ after sailing up we got the third problem `Attaching to dockinglaravel-laravel.t
 -If you would like to develop within a Devcontainer, you may provide the `--devcontainer` option to the sail:install command. The `--devcontainer` option will instruct the sail:install command to publish a default .devcontainer/devcontainer.json file to the root of your application:`php artisan sail:install --devcontainer`
 - but what is `Devcontainer` it is a container for development environment for more reading [DevContainer](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers)
 
+# FOrget service and want to add
+`php artisan sail:add` and select the service then publish
+
+# Configuring A Shell Alias
+However, instead of repeatedly typing vendor/bin/sail to execute Sail commands, you may wish to configure a shell alias that allows you to execute Sail's commands more easily:`alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'` To make sure this is always available, you may add this to your shell configuration file in your home directory, such as ~/.zshrc or ~/.bashrc, and then restart your shell.
+
+Once the shell alias has been configured, you may execute Sail commands by simply typing sail. The remainder of this documentation's examples will assume that you have configured this alias: `sail up`
+
+so now ctrl c  to shut down sail in ubuntu terminal then in ubuntu search in home files for `~/.bashrc` and add this line `alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'`
+
+this can't be found in home by `ls` but you can find it by `ls -al` to see hidden files
+
+```sh
+vim .bashrc
+```
+
+add by insert button
+
+```sh
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+```
+
+use esc then `:wq` to save and write then `exit` 
+- may need to start terminal many time till see the docker may also needs docker desktop to be up and ruining 

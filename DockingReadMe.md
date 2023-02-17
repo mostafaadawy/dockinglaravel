@@ -11,5 +11,5 @@ we  will use other methodology which is step by step
 - require sail `composer require laravel/sail --dev`
 - After Sail has been installed, you may run the sail:install Artisan command. This command will publish Sail's docker-compose.yml file to the root of your application `php artisan sail:install`
 - it require from us to select which actually the required services beside web from database mysql redes or other for our issue we select mysql `0`
-- 
+- also .env will be edited to have the connection with database service
 

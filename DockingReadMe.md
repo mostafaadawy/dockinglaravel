@@ -34,3 +34,7 @@ after sailing up we got the third problem `Attaching to dockinglaravel-laravel.t
 
 # important note
 - from this point and previous points we will work on ubuntu terminal
+
+# complete the project
+- solving to open the browser we can't use `0.0.0.0:80` link redirection from terminal but instead use `localhost:80` instead 
+- second when we open the browser to our site we found error need of key generation

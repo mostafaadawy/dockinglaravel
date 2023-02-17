@@ -19,3 +19,4 @@ we  will use other methodology which is step by step
 - the only  issue is that we have to use ubuntu terminal 
 - from terminal after installing ubuntu `ubuntu2204`
 
+other problem is that the path of terminal is not the seen our project

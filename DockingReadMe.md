@@ -14,4 +14,8 @@ we  will use other methodology which is step by step
 - also .env will be edited to have the connection with database service
 - now we can use sail to compose up our docker Finally, you may start Sail. To continue learning how to use Sail, please continue reading the remainder of this documentation: `./vendor/bin/sail up`
 - it doesn't work over gitbash terminal even it gives `Unsupported operating system [MINGW64_NT-10.0-19045]. Laravel Sail supports macOS, Linux, and Windows (WSL2).`
-- 
+# important for sail on windows
+- to solve this problem we can install ubuntu inside windows as wsl from microsoft store 
+- the only  issue is that we have to use ubuntu terminal 
+- from terminal after installing ubuntu `ubuntu2204`
+

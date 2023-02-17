@@ -32,3 +32,5 @@ after sailing up we got the third problem `Attaching to dockinglaravel-laravel.t
 
 - the solution is to change this port from 3306 to 3307 in `env` and `docker-compose.yml`
 
+# important note
+- from this point and previous points we will work on ubuntu terminal

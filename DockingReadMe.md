@@ -40,3 +40,7 @@ after sailing up we got the third problem `Attaching to dockinglaravel-laravel.t
 - second when we open the browser to our site we found error need of key generation
 - we can solve this issue by `php artisan key:generate`
 
+# [DevContainer](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers) 
+-If you would like to develop within a Devcontainer, you may provide the `--devcontainer` option to the sail:install command. The `--devcontainer` option will instruct the sail:install command to publish a default .devcontainer/devcontainer.json file to the root of your application:`php artisan sail:install --devcontainer`
+- but what is `Devcontainer` it is a container for development environment for more reading [DevContainer](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers)
+

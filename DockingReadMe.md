@@ -68,3 +68,6 @@ alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 use esc then `:wq` to save and write then `exit` 
 - may need to start terminal many time till see the docker may also needs docker desktop to be up and ruining 
+- now we can use `sail up` instead of `vendor/bin/sail`
+- To start all of the Docker containers in the background, you may start Sail in "detached" mode: `sail up -d`
+- To stop all of the containers, you may simply press Control + C to stop the container's execution. Or, if the containers are running in the background, you may use the stop command: `sail stop`

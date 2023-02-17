@@ -20,3 +20,11 @@ we  will use other methodology which is step by step
 - from terminal after installing ubuntu `ubuntu2204`
 
 other problem is that the path of terminal is not the seen our project
+
+- the solution is to `pwd and ls` to configure where are we then return to the root then enter the hard disk `mnt` to reach to our project directory as shown
+```sh
+cd ../../
+cd mnt/c/wamp/www/dockinglaravel/
+./vendor/bin/sail up
+```
+

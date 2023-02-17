@@ -28,3 +28,6 @@ cd mnt/c/wamp/www/dockinglaravel/
 ./vendor/bin/sail up
 ```
 
+after sailing up we got the third problem `Attaching to dockinglaravel-laravel.test-1, dockinglaravel-mysql-1 Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:3306 -> 0.0.0.0:0: listen tcp 0.0.0.0:3306: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.`
+
+- 

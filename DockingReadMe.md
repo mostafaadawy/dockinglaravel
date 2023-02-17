@@ -6,4 +6,6 @@ we can do this in many ways the most forwarded is to use `curl -s https://larave
 we  will use other methodology which is step by step
 
 - create new laravel project `composer create-project laravel/laravel dockinglaravel`
+- to dock our laravel project we can make it using `docker-compose.yml` and creating `dockerfile`then use `docker-compose up` or we can use sail package to help us docking our project
+- we will use sail where it is not prevented using normal docking methods and it helps us creating template for our project 
 - 

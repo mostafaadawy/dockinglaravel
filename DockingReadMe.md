@@ -13,3 +13,5 @@ we  will use other methodology which is step by step
 - it require from us to select which actually the required services beside web from database mysql redes or other for our issue we select mysql `0`
 - also .env will be edited to have the connection with database service
 - now we can use sail to compose up our docker Finally, you may start Sail. To continue learning how to use Sail, please continue reading the remainder of this documentation: `./vendor/bin/sail up`
+- it doesn't work over gitbash terminal even it gives `Unsupported operating system [MINGW64_NT-10.0-19045]. Laravel Sail supports macOS, Linux, and Windows (WSL2).`
+- 

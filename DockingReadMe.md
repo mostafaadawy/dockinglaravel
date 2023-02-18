@@ -176,3 +176,4 @@ mostafa@DESKTOP-4OCKN06:/mnt/c/wamp/www/dockinglaravel$
 ```
 - we can do the same for Invoice
 - create hasmany invoices in model
+- create customer belongsto invoice in Customer model

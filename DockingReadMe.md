@@ -78,4 +78,85 @@ use esc then `:wq` to save and write then `exit`
 - When reading the Laravel documentation, you will often see references to Composer, Artisan, and Node / NPM commands that do not reference Sail. Those examples assume that these tools are installed on your local computer. If you are using Sail for your local Laravel development environment, you should execute those commands using Sail:`sail artisan queue:work` instead of `php artisan queue:work` the onlu defference is that when using sail we use php on our isolated container while in the typical case we use our php on our machine
 - to check the php version we often need to open and sail up in ubuntu terminal and do not forget the path `cd ../../mnt/c/wamp/www/dockinglaravel/` then and keep docker desktop opened and if not work `exit` and open the terminal again where it sometimes needs restart and `exit` in our terminal may permit this. then in other terminal use `sail php --version` to check the docker php version 
 - to execute `composer` command to add package in our project docker we can prefix the composer command by `sail` such as `sail composer require laravel/sanctum`
-- 
+
+# for more sail commands and more information [read more](https://laravel.com/docs/9.x/sail)
+- we can also write `sail` in our terminal to see sail commands that we can use where sail will detect the environment which in our case is laravell and write the helper commands
+```sh
+mostafa@DESKTOP-4OCKN06:/mnt/c/wamp/www/dockinglaravel$ sail
+Laravel Sail
+
+Usage:
+  sail COMMAND [options] [arguments]
+
+Unknown commands are passed to the docker-compose binary.
+
+docker-compose Commands:
+  sail up        Start the application
+  sail up -d     Start the application in the background
+  sail stop      Stop the application
+  sail restart   Restart the application
+  sail ps        Display the status of all containers
+
+Artisan Commands:
+  sail artisan ...          Run an Artisan command
+  sail artisan queue:work
+
+PHP Commands:
+  sail php ...   Run a snippet of PHP code
+  sail php -v
+
+Composer Commands:
+  sail composer ...                       Run a Composer command
+  sail composer require laravel/sanctum
+
+Node Commands:
+  sail node ...         Run a Node command
+  sail node --version
+
+NPM Commands:
+  sail npm ...        Run a npm command
+  sail npx            Run a npx command
+  sail npm run prod
+
+Yarn Commands:
+  sail yarn ...        Run a Yarn command
+  sail yarn run prod
+
+Database Commands:
+  sail mysql     Start a MySQL CLI session within the 'mysql' container
+  sail mariadb   Start a MySQL CLI session within the 'mariadb' container
+  sail psql      Start a PostgreSQL CLI session within the 'pgsql' container
+  sail redis     Start a Redis CLI session within the 'redis' container
+
+Debugging:
+  sail debug ...          Run an Artisan command in debug mode
+  sail debug queue:work
+
+Running Tests:
+  sail test          Run the PHPUnit tests via the Artisan test command
+  sail phpunit ...   Run PHPUnit
+  sail pest ...      Run Pest
+  sail pint ...      Run Pint
+  sail dusk          Run the Dusk tests (Requires the laravel/dusk package)
+  sail dusk:fails    Re-run previously failed Dusk tests (Requires the laravel/dusk package)
+
+Container CLI:
+  sail shell        Start a shell session within the application container
+  sail bash         Alias for 'sail shell'
+  sail root-shell   Start a root shell session within the application container
+  sail root-bash    Alias for 'sail root-shell'
+  sail tinker       Start a new Laravel Tinker session
+
+Sharing:
+  sail share   Share the application publicly via a temporary URL
+
+Binaries:
+  sail bin ...   Run Composer binary scripts from the vendor/bin directory
+
+Customization:
+  sail artisan sail:publish   Publish the Sail configuration files
+  sail build --no-cache       Rebuild all of the Sail containers
+mostafa@DESKTOP-4OCKN06:/mnt/c/wamp/www/dockinglaravel$
+```
+
+

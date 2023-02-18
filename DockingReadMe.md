@@ -181,3 +181,11 @@ mostafa@DESKTOP-4OCKN06:/mnt/c/wamp/www/dockinglaravel$
 - edit migration invoice
 - edit factory  customer
 - edit factory invoice
+- edit seeder  customer
+- edit database seeder call
+```sh
+$this->call([
+            CustomerSeeder::class,
+        ]);
+```
+

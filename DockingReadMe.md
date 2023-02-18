@@ -174,3 +174,4 @@ Controller created successfully.
 Policy created successfully.
 mostafa@DESKTOP-4OCKN06:/mnt/c/wamp/www/dockinglaravel$ 
 ```
+- we can do the same for Invoice

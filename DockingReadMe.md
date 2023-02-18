@@ -179,3 +179,5 @@ mostafa@DESKTOP-4OCKN06:/mnt/c/wamp/www/dockinglaravel$
 - create customer belongsto invoice in Customer model
 - edit migration customer
 - edit migration invoice
+- edit factory  customer
+- edit factory invoice

@@ -159,4 +159,18 @@ Customization:
 mostafa@DESKTOP-4OCKN06:/mnt/c/wamp/www/dockinglaravel$
 ```
 # Now after we prepared our docker lets start the API app
-- 
+- create model controller faker and migration in one step for Customer `php artisan make:model Customer --all`
+- the previous line will make it by the power of our local machine php and according to its version while to use the docker php we have to use `sail artisan make:model Customer --all`
+- the result
+```sh
+mostafa@DESKTOP-4OCKN06:/mnt/c/wamp/www/dockinglaravel$ sail artisan make:model Customer --all
+Model created successfully.
+Factory created successfully.
+Created Migration: 2023_02_18_121629_create_customers_table
+Seeder created successfully.
+Request created successfully.
+Request created successfully.
+Controller created successfully.
+Policy created successfully.
+mostafa@DESKTOP-4OCKN06:/mnt/c/wamp/www/dockinglaravel$ 
+```

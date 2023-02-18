@@ -158,5 +158,5 @@ Customization:
   sail build --no-cache       Rebuild all of the Sail containers
 mostafa@DESKTOP-4OCKN06:/mnt/c/wamp/www/dockinglaravel$
 ```
-
-
+# Now after we prepared our docker lets start the API app
+- 

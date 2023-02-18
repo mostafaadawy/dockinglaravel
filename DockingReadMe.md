@@ -71,3 +71,11 @@ use esc then `:wq` to save and write then `exit`
 - now we can use `sail up` instead of `vendor/bin/sail`
 - To start all of the Docker containers in the background, you may start Sail in "detached" mode: `sail up -d`
 - To stop all of the containers, you may simply press Control + C to stop the container's execution. Or, if the containers are running in the background, you may use the stop command: `sail stop`
+
+# [Executing Commands](https://laravel.com/docs/9.x/sail)
+
+- When using Laravel Sail, your application is executing within a Docker container and is isolated from your local computer. However, Sail provides a convenient way to run various commands against your application such as arbitrary PHP commands, Artisan commands, Composer commands, and Node / NPM commands.
+- When reading the Laravel documentation, you will often see references to Composer, Artisan, and Node / NPM commands that do not reference Sail. Those examples assume that these tools are installed on your local computer. If you are using Sail for your local Laravel development environment, you should execute those commands using Sail:`sail artisan queue:work` instead of `php artisan queue:work` the onlu defference is that when using sail we use php on our isolated container while in the typical case we use our php on our machine
+- to check the php version we often need to open and sail up in ubuntu terminal and do not forget the path `cd ../../mnt/c/wamp/www/dockinglaravel/` then and keep docker desktop opened and if not work `exit` and open the terminal again where it sometimes needs restart and `exit` in our terminal may permit this. then in other terminal use `sail php --version` to check the docker php version 
+- to execute `composer` command to add package in our project docker we can prefix the composer command by `sail` such as `sail composer require laravel/sanctum`
+- 

@@ -196,3 +196,6 @@ $this->call([
 |sail is not located|our current directory is not the project|cd ../../mnt/c/wamp/www/dockinglaravel/|
 |migration failed connection failed|port 3306 is busy|we tried many solutions first change the port in `docker-compose.yml` and it `does not work` the `solution was` to remove mysql installation and use only wamp services on other port except 3306 and for avoiding any interfere we exit wamp but keep it installed for other undocked projects|
 sail down --rmi all -v
+
+# return back to project
+- we migrate the data and importing seeds `sail artisan migrate --seed`

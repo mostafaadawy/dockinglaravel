@@ -188,4 +188,6 @@ $this->call([
             CustomerSeeder::class,
         ]);
 ```
-
+# important notes related to mysql service sticking
+- the problem is that docker is not running
+sail down --rmi all -v

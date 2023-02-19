@@ -200,3 +200,7 @@ sail down --rmi all -v
 # return back to project
 - we migrate the data and importing seeds `sail artisan migrate --seed`
 - editing typo error in customer faker
+# developing api
+- it is recommended to have multiple versions where old users use 
+- create folder api
+- create folder v1 for version 1

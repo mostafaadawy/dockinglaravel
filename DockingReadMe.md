@@ -205,4 +205,5 @@ sail down --rmi all -v
 - create folder api
 - create folder v1 for version 1
 - editing the name spaces and paths according to our changes in voice and customer controller 
-
+- create the rout in api.php in route 
+- 

@@ -199,3 +199,4 @@ sail down --rmi all -v
 
 # return back to project
 - we migrate the data and importing seeds `sail artisan migrate --seed`
+- editing typo error in customer faker

@@ -206,4 +206,4 @@ sail down --rmi all -v
 - create folder v1 for version 1
 - editing the name spaces and paths according to our changes in voice and customer controller 
 - create the rout in api.php in route 
-- 
+- solving error as we use `'namespace'=>'App\Http\Controllers\Api\V1'` we shouldn't use controllers as import

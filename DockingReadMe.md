@@ -204,3 +204,5 @@ sail down --rmi all -v
 - it is recommended to have multiple versions where old users use 
 - create folder api
 - create folder v1 for version 1
+- editing the name spaces according to our changes in voice and customer controller 
+

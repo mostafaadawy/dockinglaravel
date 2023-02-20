@@ -207,3 +207,9 @@ sail down --rmi all -v
 - editing the name spaces and paths according to our changes in voice and customer controller 
 - create the rout in api.php in route 
 - solving error as we use `'namespace'=>'App\Http\Controllers\Api\V1'` we shouldn't use controllers as import
+- the convention of api json is camel case
+- removing created at and updated at Extra Fields from model
+- authentication also is required
+- laravel gives us something called resource that allow us to transform an eloquent model to api json `sail artisan make:resource V1\customerResource` with two notes first sail can be replaced by `php` for normal projects withouts dockers. second we add `V1\` where it might be later changes for deferent versions
+# note for me ubuntu pw is my normal pw
+- 

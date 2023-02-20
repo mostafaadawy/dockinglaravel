@@ -475,4 +475,38 @@ public function index(Request $request)
 - so the link will be 1url	`"http://localhost/api/v1/invoices?status%5Bne%5D=P&amount%5Bgte%5D=1000&page=10"` instead of  `url	"http://localhost/api/v1/invoices?page=10"`
 - fix the bug in customer also
 - so the links will be edit to be `url	"http://localhost/api/v1/customers?postalCode%5Bgt%5D=30000&type%5B%27eq%27%5D=I&page=3"` instead of `url	"http://localhost/api/v1/customers?page=3"`
-# How to include data such as Customers with their Invoices
+
+- query parameters are separated but `&` and begins after `?` and if no filters just after `?` to be `?includeInvoices` where `?` is mean query
+- so we can request other parameter such as `includeInvoices` after `$` such as `&includeInvoices` so the link become `http://localhost/api/v1/customers?postalCode%5Bgt%5D=30000&includeInvoices`
+- in order to make clean code notre that `where([])` is same effect as no where so we can instead of checking for query to add where we can call where whicjh if null will not filter and  give the same result so instead of that code template that still needs including invoices
+```sh
+public function index(Request $request)
+    {
+        $filter = new CustomerFilter();
+        $queryItems=$filter->transform($request); //[['column','operator','value']]
+        if(count($queryItems)==0){
+            return new customerCollection(Customer::paginate());
+        }else{
+            $customers = Customer::where($queryItems)->paginate();
+            return new CustomerCollection($customers->appends($request->query()));
+        }
+
+    }
+```
+- we can use this that also calls invoices and clean code
+```sh
+public function index(Request $request)
+    {
+        $filter = new CustomerFilter();
+        $filterItems=$filter->transform($request); //[['column','operator','value']]
+        $includeInvoices= $request->query('includeInvoices');
+        $customers = Customer::where([$filterItems]);
+
+        if($includeInvoices){
+            $customers=$customers->with('invoices');
+        }
+        return new CustomerCollection($customers->paginate()->appends($request->query()));
+    }
+```
+- including invoices is just use with to our eloquent and call the method in our model that join hasMany invoices to customer
+

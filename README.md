@@ -621,4 +621,70 @@ data
   }
 }
 ```
-- 
+# Updating with put and patch
+- the deference between put and patch is put must apply all fields of the record while patch only apply the required field to be changed and for sure id is required in both cases
+- in controller update both put and patch will be handel
+- if we do not have our update custom request we create it using `sail artisan make request V1/UpdateCustomerRequest`
+- it will based on fillable created for store and also on same rules we made for validation especially we didn't add uniqueness rule
+- edit the include to match both put and patch
+```sh
+    public function rules()
+    {
+        $method= $this->method();
+        if($method=="PUT"){
+            return [
+                'name'=>['required'],
+                'type'=>['required', Rule::in(['I','B','i','b'])], //I individual B business
+                'email'=>['required', 'email'],
+                'address'=>['required'],
+                'city'=>['required'],
+                'state'=>['required'],
+                'postalCode'=>['required'],
+            ];
+        }
+        else{
+            return [
+                'name'=>['sometimes','required'],
+                'type'=>['sometimes','required', Rule::in(['I','B','i','b'])], //I individual B business
+                'email'=>['sometimes','required', 'email'],
+                'address'=>['sometimes','required'],
+                'city'=>['sometimes','required'],
+                'state'=>['sometimes','required'],
+                'postalCode'=>['sometimes','required'],
+            ];
+        }
+    }
+```
+- where `sometimes` will validate according to the rules if exists
+- and `$method= $this->method();` where `$this` returns to the request so calling its method to check it
+- in thunder change the method from POST to put and change the data as we need
+- do not forget to set the body json to the required change with same id
+- our link have to be `http://localhost/api/v1/customers/231`
+```sh
+{
+    "name": "Mostafa Ahmed Adawy",
+    "type": "B",
+    "email": "mostafaAdawy@laravel.com",
+    "address": "1244 cairo st",
+    "city": "new cairo",
+    "state": "Cairo",
+    "postalCode": "1245789"
+  }
+  ```
+  - and request header to not redirect `accept` to `application/json`
+  - method to `PUT`
+  - result will 200
+  - in order to test patch do the same but in json reduce it to the only require fields
+  ```sh
+  {
+    "name": "Mostafa Adawy",
+    "type": "I",
+    "state": "Cai"
+  }
+  ```
+- note remove the `,` in last json item it causes error in json may be php do not care but json care
+- we get error
+```sh
+"message": "SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'postal_code' cannot be null (SQL: update `customers` set `name` = Mostafa Adawy, `type` = I, `state` = Cai, `postal_code` = ?, `customers`.`updated_at` = 2023-02-20 18:49:48 where `id` = 231)",
+```
+- that means also sometimes but prepareForValidation function merges that value to postal_code so it will be exited in patch even with null value when we do not send it and that is cause error in database where it must be not null it is not nullable the solution is to merge on

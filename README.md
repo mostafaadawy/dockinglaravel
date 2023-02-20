@@ -281,7 +281,7 @@ sail down --rmi all -v
 - authentication also is required
 - laravel gives us something called resource that allow us to transform an eloquent model to api json `sail artisan make:resource V1\customerResource` with two notes first sail can be replaced by `php` for normal projects withouts dockers. second we add `V1\` where it might be later changes for deferent versions
 # note for me ubuntu pw is my normal pw
-- solving error `sail artisan make:resource V1\customerResource` work for windows createing folder V1 and inside it create the file while in ubuntu it will not work right so instead we use `sail artisan make:resource V1/customerResource` with path or back slash 
+- solving error `sail artisan make:resource V1\customerResource` work for windows creating folder V1 and inside it create the file while in ubuntu it will not work right so instead we use `sail artisan make:resource V1/customerResource` with path or back slash 
 - lets first implement our customer show method 
 - now if we add `\id` to our link we get the customer data 
 ```sh
@@ -564,3 +564,61 @@ data
 - first of all we use `request()` instead of `$request` where we do not have here request argument so we can insert it or simply we can just use  request function `request()` as shown
 - second what is `LoadMissing` it is [lazy eager loading](https://laravel.com/docs/5.5/eloquent-relationships#lazy-eager-loading) method that load the data from database just before usage while normal lazy loading as call it from model is call when called not before all of these are methods for loading database just as before usage and be ready as a bulk eager loading that reduce number of requests where it calls all bulk of data and work on it but requires large ram or just call when need lazy loading that require a lot of delayed time but low ram size or lazy eager that prepare data not all bulk but data before use for more information check laravel [docs](https://laravel.com/docs/5.2/eloquent-relationships)
 - now we get the user with its invoices and if we don't want invoices just do not add `&includeInvoices=true`
+# Creating Data with POst Method 
+- for that issue we need `HTTP Client` to send requests so we can use `post man` or `http thunder` vscode extension
+- we should create a request class to custom our request for api
+- we will use `Customer::create($request->all())` by the eloquent model create power to store new record may be we return new Resource of that created data as response in store as follows
+```sh
+  public function store(StoreCustomerRequest $request)
+    {
+        return new customerResource(Customer::create($request->all()));
+    }
+```
+- first to allow save in model we need to create `protected fillable array of that fields`
+- if we our input argument request is standard request we need to `sail artisan make request V1/StoreCustomerRequest`
+- custom request has two objectives the first is authentication and second is validation rules
+- edit the file for auth and rules
+- as i use thunder extension
+- select POST method then Body then json then add 
+```sh
+{
+  "name":"Mostafa Adawy",
+  "type":"z",
+  "email":"mostafa@laravel.com",
+  "address":"124 cairo st",
+  "city":"cairo",
+  "state":"cairo",
+  "postalCode":"124578"
+}
+```
+- where `type` is error entry to check validation rules
+- when error it returns index page when error 
+- to not redirect and to see the error we have to modify our request `header` where in default in `accept` it accepts everything `*/*` so to see the returned messages we need to edit our header accept to `*/*` to be `application/json`
+- now we can read the error return back massage and not redirected to index page
+- here was the url was not for create we edited it to be `http://localhost/api/v1/customers/` so we get the result
+```sh
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "type": [
+      "The selected type is invalid."
+    ]
+  }
+}
+```
+- when we write the right validated json we get the result
+```sh
+{
+  "data": {
+    "id": 231,
+    "name": "Mostafa Adawy",
+    "type": "I",
+    "email": "mostafa@laravel.com",
+    "address": "124 cairo st",
+    "city": "cairo",
+    "state": "cairo",
+    "postalCode": "124578"
+  }
+}
+```
+- 

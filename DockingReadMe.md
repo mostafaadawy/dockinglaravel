@@ -237,4 +237,5 @@ public function show(Customer $customer)
     }
 ```
 - so we filtered or change the data to the way we need through resource conversions
-
+- editing other resource field as the figure we want it 
+- we are explicitly put data in the shape we want and filter iit and this is the purpose of the resource

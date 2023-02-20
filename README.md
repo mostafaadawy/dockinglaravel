@@ -509,4 +509,8 @@ public function index(Request $request)
     }
 ```
 - including invoices is just use with to our eloquent and call the method in our model that join hasMany invoices to customer
-
+- here we get that error 
+```sh
+SQLSTATE[42S22]: Column not found: 1054 Unknown column '0' in 'where clause' (SQL: select count(*) as aggregate from `customers` where ((`0` = postal_code and `1` = > and `2` = 30000))) 
+```
+- that is because wrapping $filters in an array where it is acutely array it self

@@ -222,4 +222,19 @@ public function show(Customer $customer)
     }
 ```
 - it is so simple when we pindling customer not id in our controller
+- when we use our resource to return certain item/items check the CustomerResource change
+```sh
+ return [
+            'id'=>$this->id,
+        ];
+```
+- and use it in our show method 
+```sh
+  public function show(Customer $customer)
+    {
+        // return $customer;
+        return new customerResource($customer);
+    }
+```
+- so we filtered or change the data to the way we need through resource conversions
 

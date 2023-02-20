@@ -471,3 +471,5 @@ public function index(Request $request)
     }
 ```
 - so the link will be 1url	`"http://localhost/api/v1/invoices?status%5Bne%5D=P&amount%5Bgte%5D=1000&page=10"` instead of  `url	"http://localhost/api/v1/invoices?page=10"`
+- fix the bug in customer also
+- so the links will be edit to be `url	"http://localhost/api/v1/customers?postalCode%5Bgt%5D=30000&type%5B%27eq%27%5D=I&page=3"` instead of `url	"http://localhost/api/v1/customers?page=3"`

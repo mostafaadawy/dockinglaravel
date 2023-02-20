@@ -476,8 +476,8 @@ public function index(Request $request)
 - fix the bug in customer also
 - so the links will be edit to be `url	"http://localhost/api/v1/customers?postalCode%5Bgt%5D=30000&type%5B%27eq%27%5D=I&page=3"` instead of `url	"http://localhost/api/v1/customers?page=3"`
 
-- query parameters are separated but `&` and begins after `?` and if no filters just after `?` to be `?includeInvoices` where `?` is mean query
-- so we can request other parameter such as `includeInvoices` after `$` such as `&includeInvoices` so the link become `http://localhost/api/v1/customers?postalCode%5Bgt%5D=30000&includeInvoices`
+- query parameters are separated but `&` and begins after `?` and if no filters just after `?` to be `?includeInvoices=true` where `?` is mean query
+- so we can request other parameter such as `includeInvoices=true` after `$` such as `&includeInvoices=true` so the link become `http://localhost/api/v1/customers?postalCode%5Bgt%5D=30000&includeInvoices=true`
 - in order to make clean code notre that `where([])` is same effect as no where so we can instead of checking for query to add where we can call where whicjh if null will not filter and  give the same result so instead of that code template that still needs including invoices
 ```sh
 public function index(Request $request)
@@ -509,8 +509,26 @@ public function index(Request $request)
     }
 ```
 - including invoices is just use with to our eloquent and call the method in our model that join hasMany invoices to customer
-- here we get that error 
+- here we get that error when using `http://localhost/api/v1/customers?postalCode[gt]=30000&type[%27eq%27]=I&includeInvoices=true`
 ```sh
 SQLSTATE[42S22]: Column not found: 1054 Unknown column '0' in 'where clause' (SQL: select count(*) as aggregate from `customers` where ((`0` = postal_code and `1` = > and `2` = 30000))) 
 ```
-- that is because wrapping $filters in an array where it is acutely array it self
+- that is because wrapping $filters in an array where it is acutely array it self 
+# But Why we do not get the invoices with the customer?
+- the reason is that the result collections that are send is controlled by the `CustomerResource` and `CustomerCollection` which not include 'invoice' in its returned fields od data as shown 
+```sh
+    public function toArray($request)
+    {
+        return [
+            'id'=>$this->id,
+            'name'=>$this->name,
+            'type'=>$this->type,
+            'email'=>$this->email,
+            'address'=>$this->address,
+            'city'=>$this->city,
+            'state'=>$this->state,
+            'postalCode'=>$this->postal_code,
+        ];
+    }
+```
+- so we need to add `'invoices'` but what is the data that will be assigned to that key as value actually it is not value it is a function in invoice model o it will be `'invoices'=>InvoiceResource::collection($this->whenLoaded('invoices')),`

@@ -213,3 +213,13 @@ sail down --rmi all -v
 - laravel gives us something called resource that allow us to transform an eloquent model to api json `sail artisan make:resource V1\customerResource` with two notes first sail can be replaced by `php` for normal projects withouts dockers. second we add `V1\` where it might be later changes for deferent versions
 # note for me ubuntu pw is my normal pw
 - solving error `sail artisan make:resource V1\customerResource` work for windows createing folder V1 and inside it create the file while in ubuntu it will not work right so instead we use `sail artisan make:resource V1/customerResource` with path or back slash 
+- lets first implement our customer show method 
+- now if we add `\id` to our link we get the customer data 
+```sh
+public function show(Customer $customer)
+    {
+        return $customer;
+    }
+```
+- it is so simple when we pindling customer not id in our controller
+

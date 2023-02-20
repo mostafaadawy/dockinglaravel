@@ -532,3 +532,35 @@ SQLSTATE[42S22]: Column not found: 1054 Unknown column '0' in 'where clause' (SQ
     }
 ```
 - so we need to add `'invoices'` but what is the data that will be assigned to that key as value actually it is not value it is a function in invoice model o it will be `'invoices'=>InvoiceResource::collection($this->whenLoaded('invoices')),`
+```sh
+
+```
+# adding invoices for the individual customers (show)
+- before anything if we browse `http://localhost/api/v1/customers/5`  the result will be
+```sh
+data
+    id	5
+    name	"Stroman Group"
+    type	"B"
+    email	"santina.hahn@gmail.com"
+    address	"806 Boyle Park Suite 378"
+    city	"West Gracie"
+    state	"South Dakota"
+    postalCode	"19803-8714"
+```
+- no invoices even we try `http://localhost/api/v1/customers/5?includeInvoices=true` it will be the same result
+- we will use `with` as before but with some deferences check the code first
+```sh
+  public function show(Customer $customer)
+    {
+        $includeInvoices= request()->query('includeInvoices');
+        if($includeInvoices){
+            return new customerResource($customer->loadMissing('invoices'));
+        }
+
+        return new customerResource($customer);
+    }
+```
+- first of all we use `request()` instead of `$request` where we do not have here request argument so we can insert it or simply we can just use  request function `request()` as shown
+- second what is `LoadMissing` it is [lazy eager loading](https://laravel.com/docs/5.5/eloquent-relationships#lazy-eager-loading) method that load the data from database just before usage while normal lazy loading as call it from model is call when called not before all of these are methods for loading database just as before usage and be ready as a bulk eager loading that reduce number of requests where it calls all bulk of data and work on it but requires large ram or just call when need lazy loading that require a lot of delayed time but low ram size or lazy eager that prepare data not all bulk but data before use for more information check laravel [docs](https://laravel.com/docs/5.2/eloquent-relationships)
+- now we get the user with its invoices and if we don't want invoices just do not add `&includeInvoices=true`

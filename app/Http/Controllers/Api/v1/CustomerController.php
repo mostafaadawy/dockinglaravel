@@ -8,6 +8,8 @@ use App\Models\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\customerResource;
 use App\Http\Resources\V1\customerCollection;
+use App\Services\V1\CustomerQuery;
+use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
@@ -16,10 +18,17 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // return Customer::all();
-        return new customerCollection(Customer::paginate());
+        $filter = new CustomerQuery();
+        $queryItems=$filter->transform($request); //[['column','operator','value']]
+        if(count($queryItems)==0){
+            return new customerCollection(Customer::paginate());
+        }else{
+            return new customerCollection(Customer::where($queryItems)->paginate());
+        }
+
     }
 
     /**

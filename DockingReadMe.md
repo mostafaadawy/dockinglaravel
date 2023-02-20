@@ -252,3 +252,38 @@ public function show(Customer $customer)
 - now if we checked our index link we will find that without defining the fields as we did for resource it is already flittered and converted and that is because it inherits its array from resource for the same controller model `class customerCollection extends ResourceCollection`
 as we can see in customer collections it extends resource so we begin with the resource and it extends collection
 - actually and by default if we just instead of `all` call `paginate` collection insert pagination 
+- now in our browser we will find that we got theses new data for pagination
+```sh
+links	
+    first	"http://localhost/api/v1/customers?page=1"
+    last	"http://localhost/api/v1/customers?page=16"
+    prev	null
+    next	"http://localhost/api/v1/customers?page=2"
+meta	
+    current_page	1
+    from	1
+    last_page	16
+links	
+    0	
+    url	null
+    label	"&laquo; Previous"
+    active	false
+    1	
+    url	"http://localhost/api/v1/customers?page=1"
+    label	"1"
+    active	true
+    2	
+    url	"http://localhost/api/v1/customers?page=2"
+    label	"2"
+    active	false
+    3	
+    url	"http://localhost/api/v1/customers?page=3"
+    label	"3"
+    active	false
+    .
+    .
+    .
+```
+- so now in the link of our browser if we require page number 2 for example just call one of the allowed links `http://localhost/api/v1/customers?page=2`
+
+

@@ -432,4 +432,11 @@ class CustomerQuery{
 
     }
 ```
+- now we created a class that can implement a filter on a result
+- we want to implement a class that not just can implement a filter for any other model such as invoice
+- to make it globally lets first rename `Services` to `Filters` to not interfere with other services where services issues is not just filtering
+- edit the path in controller and nameSpace in Customer Query
+- we need a basic class to be extended for all query filter classes
+- change the name of the class to customer filter
+- note we can use `facade` or service to inject our filter base class in order to not insensate an object of the class ` $filter = new CustomerFilter();` but let it later 
 - 

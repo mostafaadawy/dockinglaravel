@@ -6,6 +6,9 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\customerResource;
+use App\Http\Resources\V1\customerCollection;
+
 class CustomerController extends Controller
 {
     /**
@@ -15,7 +18,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return Customer::all();
+        // return Customer::all();
+        return new customerCollection(Customer::paginate());
     }
 
     /**
@@ -47,7 +51,8 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        // return $customer;
+        return new customerResource($customer);
     }
 
     /**

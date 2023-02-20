@@ -251,4 +251,4 @@ public function show(Customer $customer)
 ```
 - now if we checked our index link we will find that without defining the fields as we did for resource it is already flittered and converted and that is because it inherits its array from resource for the same controller model `class customerCollection extends ResourceCollection`
 as we can see in customer collections it extends resource so we begin with the resource and it extends collection
-
+- actually and by default if we just instead of `all` call `paginate` collection insert pagination 

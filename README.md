@@ -642,3 +642,151 @@ data
 "message": "SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'postal_code' cannot be null (SQL: update `customers` set `name` = Mostafa Adawy, `type` = I, `state` = Cai, `postal_code` = ?, `customers`.`updated_at` = 2023-02-20 18:49:48 where `id` = 231)",
 ```
 - that means also sometimes but prepareForValidation function merges that value to postal_code so it will be exited in patch even with null value when we do not send it and that is cause error in database where it must be not null it is not nullable the solution is to merge on
+# Bulk Insertion
+- for bulk insertion just as adding some invoices to certain customer
+- first we need to add validation for that bulk of invoices same as we did for customer but with some deference some of them returns to invoice fields and others for the bulk or the array of data 
+- first we create custom bulk request that uses prefix ` '*.`for the fields of validation when we have array of objects
+- and in `prepareForValidation` because it is mre than one element to merge we have to create array to be merged
+- check the code
+```sh
+<?php
+
+namespace App\Http\Requests\V1;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+class BulkStoreInvoiceRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        // if our data of objects in data:[] so instead of *.filedName use data.*.filedName
+        return [
+            '*.customerID'=>['required','integer'],
+            '*.amount'=>['required','numeric'],
+            '*.status'=>['required', Rule::in(['P','B','V','p','b','v'])],
+            '*.billedDate'=>['required', 'date_format:Y-m-d H:i:s','nullable'],
+            '*.paidDate'=>['required', 'date_format:Y-m-d H:i:s','nullable'],
+        ];
+    }
+    protected function prepareForValidation(){
+        $data=[];
+        foreach($this->toArray() as $obj){
+            $obj['customer_id']=$obj['customerID']??null;
+            $obj['billed_date']=$obj['billedDate']??null;
+            $obj['paid_date']=$obj['paidDate']??null;
+            $data[]=$obj;
+        }
+        $this->merge($data);
+    }
+}
+```
+- in invoice controller we need to create the function bulkStore
+- use the custom request
+- we can be fall in error where we will use method `insert(array)` and it defers from create where it is not neglected the redundant fields that are not fillable just as `billedDate paidDate customerId` while after merge we will have these and `billed_date paid_date customer_i_d` so to solve this issue we need to filter these fields by `map` and that can be done by converting to `collection` then remove unwanted fields then return to array
+- check the code
+```sh
+public function bulkStore(Request $request)
+    {
+        $bulk= collect($request->all())->map(function($arr,$key){
+            return Arr::except($arr,['customerId','billedDate','paidDate']);
+        });
+        Invoice::insert($bulk->toArray());
+    }
+```
+- create rout `oute::POST('invoices/bulk',['sues'=>'InvoiceController@bulkStore']);` on api.php
+- on thunder create post method header accept application/json body contains array of invoices with url `http://localhost/api/v1/invoices/bulk`
+- body json
+```sh
+[{
+        "customerId":	"1",
+        "amount":	"4400",
+        "status":	"B",
+        "billedDate":	"2017-07-12 09:23:26",
+        "paidDate":	"2018-11-06 07:35:43"
+    },{
+        "customerId":	"1",
+        "amount":	"52444",
+        "status":	"B",
+        "billedDate":	"2015-04-27 18:37:12",
+        "paidDate":	"2018-11-06 07:35:43"
+    },{
+        "customerId":	"1",
+        "amount":	"9646",
+        "status":	"P",
+        "billedDate":	"2017-05-03 03:06:40",
+        "paidDate":	"2018-11-06 07:35:43"
+    },{
+        "customerId":	"1",
+        "amount":	"6266",
+        "status":	"V",
+        "billedDate":	"2016-05-30 19:47:28",
+        "paidDate":	"2018-11-06 07:35:43"
+    },{
+        "customerId":	"1",
+        "amount":	"7426",
+        "status":	"P",
+        "billedDate":	"2019-10-21 12:04:43",
+        "paidDate":	"2018-11-06 07:35:43"
+    },{
+        "customerId":	"1",
+        "amount":	"706",
+        "status":	"P",
+        "billedDate":	"2016-07-23 12:44:11",
+        "paidDate":	"2018-11-06 07:35:43"
+    },{
+        "customerId":	"1",
+        "amount":	"13984",
+        "status":	"P",
+        "billedDate":	"2018-11-06 07:35:43",
+        "paidDate":	"2018-11-06 07:35:43"
+    },{
+        "customerId":	"1",
+        "amount":	"18865",
+        "status":	"P",
+        "billedDate":	"2020-04-07 21:32:22",
+        "paidDate":	"2018-11-06 07:35:43"
+    },{
+        "customerId":	"1",
+        "amount":	"4324",
+        "status":	"B",
+        "billedDate":	"2017-12-07 23:15:15",
+        "paidDate":	null
+    },{
+        "customerId":	"1",
+        "amount":	"10957",
+        "status":	"B",
+        "billedDate":	"2022-11-22 05:35:15",
+        "paidDate":	"2018-11-06 07:35:43"
+}]
+```
+- when we try to induce an error like send null and string instead of integer to required fields we get msg to define where the error exactly
+```sh
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "8.amount": [
+      "The 8.amount must be a number."
+    ],
+    "5.billedDate": [
+      "The 5.billedDate field is required."
+    ]
+  }
+}
+```
+- where index begins from 0 
+

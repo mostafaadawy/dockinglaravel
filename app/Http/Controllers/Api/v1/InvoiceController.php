@@ -8,6 +8,8 @@ use App\Models\Invoice;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\invoiceCollection;
 use App\Http\Resources\V1\invoiceResource;
+use App\Filters\V1\InvoiceFilter;
+use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
@@ -16,10 +18,15 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // return Invoice::all();
-         return new invoiceCollection(Invoice::paginate());
+        $filter = new InvoiceFilter();
+        $queryItems=$filter->transform($request); //[['column','operator','value']]
+        if(count($queryItems)==0){
+            return new InvoiceCollection(Invoice::paginate());
+        }else{
+            return new InvoiceCollection(Invoice::where($queryItems)->paginate());
+        }
     }
 
     /**

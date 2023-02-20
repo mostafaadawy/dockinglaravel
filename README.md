@@ -439,4 +439,7 @@ class CustomerQuery{
 - we need a basic class to be extended for all query filter classes
 - change the name of the class to customer filter
 - note we can use `facade` or service to inject our filter base class in order to not insensate an object of the class ` $filter = new CustomerFilter();` but let it later 
-- 
+- creating invoice filter take care no need for transform function where it is same in all and exists from extended ApiFilter
+- add the same logics as in customer index function to invoice index function with the nesseceraly changes
+- we can test it by the link `localhost/api/v1/invoices?status[ne]=P&amount[gte]=1000` will return invoices greater than 1000 and paid
+

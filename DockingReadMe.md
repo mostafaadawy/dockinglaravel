@@ -241,3 +241,13 @@ public function show(Customer $customer)
 - we are explicitly put data in the shape we want and filter iit and this is the purpose of the resource
 - same way we will create anther resource for index method `sail artisan make:resource V1/customerCollection` note that we replaced `Resource` with `Collection` where it is specific to deal with collection of objects/things
 - thanks to auto add that if not exist we need to import use of class
+- in controller 
+```sh
+ public function index()
+    {
+        // return Customer::all();
+        return new customerCollection(Customer::all());
+    }
+```
+- now if we checked our index link we will find that without defining the fields as we did for resource it is already flittered and converted and that is because it inherits its array from resource for the same controller model
+

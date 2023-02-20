@@ -285,5 +285,6 @@ links
     .
 ```
 - so now in the link of our browser if we require page number 2 for example just call one of the allowed links `http://localhost/api/v1/customers?page=2`
+- do the same thing resources and collection for invoice
 
 

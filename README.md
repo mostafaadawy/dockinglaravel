@@ -442,4 +442,32 @@ class CustomerQuery{
 - creating invoice filter take care no need for transform function where it is same in all and exists from extended ApiFilter
 - add the same logics as in customer index function to invoice index function with the nesseceraly changes
 - we can test it by the link `localhost/api/v1/invoices?status[ne]=P&amount[gte]=1000` will return invoices greater than 1000 and paid
-
+- small error exists that when use the pagination filter not work where the auto generated link from pagination option is not contains the filter effect
+- and to fix that we need to attach or append that return with the request query so we use this code 
+```sh
+public function index(Request $request)
+    {
+        $filter = new InvoiceFilter();
+        $queryItems=$filter->transform($request); //[['column','operator','value']]
+        if(count($queryItems)==0){
+            return new InvoiceCollection(Invoice::paginate());
+        }else{
+            $invoices = Invoice::where($queryItems)->paginate();
+            return new InvoiceCollection($invoices->appends($request->query()));
+        }
+    }
+```
+- instead of that code
+```sh
+public function index(Request $request)
+    {
+        $filter = new InvoiceFilter();
+        $queryItems=$filter->transform($request); //[['column','operator','value']]
+        if(count($queryItems)==0){
+            return new InvoiceCollection(Invoice::paginate());
+        }else{
+            return new InvoiceCollection(Invoice::where($queryItems)->paginate());
+        }
+    }
+```
+- so the link will be 1url	`"http://localhost/api/v1/invoices?status%5Bne%5D=P&amount%5Bgte%5D=1000&page=10"` instead of  `url	"http://localhost/api/v1/invoices?page=10"`

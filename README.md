@@ -869,7 +869,9 @@ volumes:
 
 # to access phpmyadmin from browser we need login
 - from `.env` file that pass through mysql pw and username
+
 |username|password|
 |--|--|
 |sail|password|
+
 - 

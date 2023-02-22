@@ -793,3 +793,73 @@ public function bulkStore(Request $request)
 - sanctum token for an api authenticate and single page authentication
 - it is easy to use
 - sanctum is installed by default we can check our composer.json if not we need to require `composer require laravel/sanctum` it and publish it `sail artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"` to reach service provider `sail or php` docker or local machine then migrate `sail artisan migrate` to add tokens table 
+# adding phpmyadmin service to docker
+- check the code after update and notice the phpadminservice
+```sh
+# For more information: https://laravel.com/docs/sail
+version: '3'
+services:
+    laravel.test:
+        build:
+            context: ./vendor/laravel/sail/runtimes/8.2
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        image: sail-8.2/app
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '${APP_PORT:-80}:80'
+            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - mysql
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'sail-mysql:/var/lib/mysql'
+            - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+        networks:
+            - sail
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            retries: 3
+            timeout: 5s
+    phpmyadmin:
+        depends_on:
+            - mysql
+        image: phpmyadmin/phpmyadmin
+        environment:
+            - PMA_HOST=mysql
+            - PORT=3306
+        networks:
+            - sail
+        ports:
+            - 9000:80
+
+networks:
+    sail:
+        driver: bridge
+volumes:
+    sail-mysql:
+        driver: local
+```
+- <p style="color:red"> note that it depends on mysql and we get ready maid image then we defined the environment host and port then the networks that connects all services together then it is by default connects to port 80 so we forward it to 9000</p>
+- <p style="color:red"> note also we can instead of sail or docker-compose we can do container commends from docker desk top container select cli or terminal and now this terminal is called from our docker</p>

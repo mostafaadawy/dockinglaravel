@@ -985,5 +985,9 @@ public function authorize()
         return $user != null && $user->tokenCan('update');
     }
 ```
-
-
+- at that moment middleware gat is opened by a token this authentication 
+```
+- as the system recognize you it still has no restriction for you to do what you want so to authorize your actions what to do and what not to do we use tokenCan and this checks when we made a token is it allowed to do what so authentication comes in middleware and authorization comes from custom request tokenCan 
+- there is still a bug where when we created basic token we leaved it empty and that will allow this token to do all action by default and to prevent that we have to define some thing in authorization array in createToken something like `["none"]` for example 
+```
+- 

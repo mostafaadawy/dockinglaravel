@@ -790,4 +790,6 @@ public function bulkStore(Request $request)
 ```
 - where index begins from 0 
 # Authentication with Sanctum
-- 
+- sanctum token for an api authenticate and single page authentication
+- it is easy to use
+- sanctum is installed by default we can check our composer.json if not we need to require `composer require laravel/sanctum` it and publish it `sail artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"` to reach service provider `sail or php` docker or local machine

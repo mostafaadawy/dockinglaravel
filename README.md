@@ -906,3 +906,12 @@ Route::get('/setup',function(){
 - if not created will create it for test
 - we check if it is exist we create its token where we can define the permissions which will be every thing `'create','update','delete'` while nothing in basic we get the palintext of that token to be used with our sanctum middleware
 - note that this creation function place is not in routes it have to be in controller login but this is for simplesity while the part of creation is in registration 
+- in `Routes api.php` we have to insert the middleware as follows
+```sh
+Route::group(['prefix'=>'v1', 'namespace'=>'App\Http\Controllers\Api\V1', 'middleware'=>'auth:sanctum'], function(){
+    Route::apiResource('customers',CustomerController::class);
+    Route::apiResource('invoices',InvoiceController::class);
+    Route::POST('invoices/bulk',['uses'=>'InvoiceController@bulkStore']);
+});
+```
+- 

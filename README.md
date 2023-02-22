@@ -946,4 +946,34 @@ Route::get('/setup',function(){
     }
 ```
 - this the result `{"admin":"1|560FWVs2gNjHwN6FvjoqnAhio30UehvrJlqB5INr","update":"2|FETsjC7qz5SB9MgwsZbdSLMq1qbDJxFNXca2JkiD","basic":"3|sTETJ1oAsWxHb1WQrbvr5eSY62GLfJbjnU0XLswE"}`
-- 
+- now if we try to get customers from thunder http client we get this authentication error
+```sh
+{
+  "message": "Unauthenticated."
+}
+```
+- to make it authenticated from thunder http client do the following"
+    - from Authorization/Auth tab select token `bearer token` 
+    - copy past the required token if basic we can just get while admin allow all
+# Authorization allow or deny certain requests By Tokens
+- assign capabilities to a token we will apply for create a nd update
+- in our customer requests we have bulk create and store 
+- first thing in it we get the user to define what to do for that user
+- so we changed the code from 
+```sh
+    public function authorize()
+    {
+        return true;
+    }
+```
+- where true means allow while false means not allowed action so we edited it to
+```sh
+    public function authorize()
+    {
+        $user =$this->user();
+        return $user != null && $user->tokenCan('create');
+    }
+```
+- so this action of create now is protected where can reads the argument of this user toke if it has `'create','update','delete'` where in this case we check for create
+
+

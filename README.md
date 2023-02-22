@@ -977,6 +977,9 @@ Route::get('/setup',function(){
 - so this action of create now is protected where can reads the argument of this user toke if it has `'create','update','delete'` where in this case we check for create
 - we can do the same for bulk request
 we can prefix it by the model that we check for it also for example when we create invoices from customer `return $user != null && $user->tokenCan('customer:create');` or `return $user != null && $user->tokenCan('invoice:create');`
+- do the same for update but check for update not create
+```sh
 
+```
 
 

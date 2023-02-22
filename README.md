@@ -864,6 +864,7 @@ volumes:
 - <p style="color:red"> note that it depends on mysql and we get ready maid image then we defined the environment host and port then the networks that connects all services together then it is by default connects to port 80 so we forward it to 9000</p>
 - <p style="color:red"> note also we can instead of sail or docker-compose we can do container commends from docker desk top container select cli or terminal and now this terminal is called from our docker</p>
 
-![1](https://user-images.githubusercontent.com/43582900/220573678-efad7006-7132-42a2-9b96-05ae4a025ebc.jpg)
-![2](https://user-images.githubusercontent.com/43582900/220573767-a5044ecd-9192-496d-be31-cfd2ab3c378d.jpg)
+
+<img src="https://user-images.githubusercontent.com/43582900/220573678-efad7006-7132-42a2-9b96-05ae4a025ebc.jpg" alt="Paris" class="center"> 
+<img src="https://user-images.githubusercontent.com/43582900/220573767-a5044ecd-9192-496d-be31-cfd2ab3c378d.jpg" alt="Paris" class="center"> 
 

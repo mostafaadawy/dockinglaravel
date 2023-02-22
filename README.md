@@ -945,3 +945,5 @@ Route::get('/setup',function(){
     }
     }
 ```
+- this the result `{"admin":"1|560FWVs2gNjHwN6FvjoqnAhio30UehvrJlqB5INr","update":"2|FETsjC7qz5SB9MgwsZbdSLMq1qbDJxFNXca2JkiD","basic":"3|sTETJ1oAsWxHb1WQrbvr5eSY62GLfJbjnU0XLswE"}`
+- 

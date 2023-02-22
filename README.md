@@ -914,4 +914,4 @@ Route::group(['prefix'=>'v1', 'namespace'=>'App\Http\Controllers\Api\V1', 'middl
     Route::POST('invoices/bulk',['uses'=>'InvoiceController@bulkStore']);
 });
 ```
-- 
+-  error cant `Auth::attempt` and also when retry database duplication found 

@@ -874,4 +874,35 @@ volumes:
 |--|--|
 |sail|password|
 
-- 
+- to have token we should have user to make this in standard form using `composer require laravel/ui`to add user frontend interface for login and registration and `sail artisan ui vue --auth` then `migrate`
+- then create user and then authenticate it 
+- for simplest and just testing functionality we will add the user if not exists and if exists will authunatectate it and give him atoken and return it to use in `routes web.php` as follows
+```sh
+Route::get('/setup',function(){
+    $credentials=[
+        'email'=>'admin@dockinglaravel.com',
+        'password'=>'password',
+    ];
+    if(!Auth::attempt($credentials)){
+        $user=new \App\Models\User();
+        $user->name='Admin';
+        $user->email='admin@dockinglaravel.com';
+        $user->password='password';
+        $user->save();
+    }else{
+        $user=Auth::user();
+        $adminToken=$user->createToken('admin-token',['create','update','delete']);
+        $updateToken=$user->createToken('update-token',['create','update']);
+        $basicToken=$user->createToken('basic-token');
+    }
+    return [
+        'admin'=>$adminToken->plainTextToken,
+        'update'=>$updateToken->plainTextToken,
+        'basic'=>$basicToken->plainTextToken,
+    ];
+});
+```
+- we can see from the above code we create user and we can get its tokens
+- if not created will create it for test
+- we check if it is exist we create its token where we can define the permissions which will be every thing `'create','update','delete'` while nothing in basic we get the palintext of that token to be used with our sanctum middleware
+- note that this creation function place is not in routes it have to be in controller login but this is for simplesity while the part of creation is in registration 

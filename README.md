@@ -870,9 +870,9 @@ volumes:
 # to access phpmyadmin from browser we need login
 - from `.env` file that pass through mysql pw and username
 
-|username|password|
-|--|--|
-|sail|password|
+|username|password|port|
+|--|--|--|
+|sail|password|http://localhost:9000/|
 
 - to have token we should have user to make this in standard form using `composer require laravel/ui`to add user frontend interface for login and registration and `sail artisan ui vue --auth` then `migrate`
 - then create user and then authenticate it 

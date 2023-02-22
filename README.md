@@ -789,4 +789,5 @@ public function bulkStore(Request $request)
 }
 ```
 - where index begins from 0 
-
+# Authentication with Sanctum
+- 

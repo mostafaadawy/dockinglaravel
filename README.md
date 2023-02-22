@@ -968,7 +968,7 @@ Route::get('/setup',function(){
 ```
 - where true means allow while false means not allowed action so we edited it to
 ```sh
-    public function authorize()
+public function authorize()
     {
         $user =$this->user();
         return $user != null && $user->tokenCan('create');
@@ -979,7 +979,11 @@ Route::get('/setup',function(){
 we can prefix it by the model that we check for it also for example when we create invoices from customer `return $user != null && $user->tokenCan('customer:create');` or `return $user != null && $user->tokenCan('invoice:create');`
 - do the same for update but check for update not create
 ```sh
-
+public function authorize()
+    {
+        $user =$this->user();
+        return $user != null && $user->tokenCan('update');
+    }
 ```
 
 
